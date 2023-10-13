@@ -1,0 +1,3 @@
+[submodule "song_tools"]
+	path = song_tools
+	url = https://github.com/birchtree02/song_tools.git
