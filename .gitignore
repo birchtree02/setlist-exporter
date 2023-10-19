@@ -1,2 +1,7 @@
 songs-folder/
 __pycache__/
+build/
+dist/
+song_tools/
+*.spec
+.DS_STORE
