@@ -1,3 +1,5 @@
+import os
+import sys
 from nicegui import ui, native_mode
 import logging
 
@@ -15,16 +17,22 @@ logging.basicConfig(
 def main():
     app = ApplicationState()
 
-    def open_openlp(state, div):
-        with div:
-            openlp.main(state, lambda state: open_spotify(state, spotify_div))
+    if getattr(sys, "frozen", False):
+        # Code is running as a bundled executable (PyInstaller)
+        app.dir = sys._MEIPASS
+    else:
+        # Code is running from the development environment
+        app.dir = os.path.dirname(os.path.abspath(__file__))
 
-    def open_spotify():
-        pass
+    def open_modules(state):
+        with openlp_div:
+            openlp.main(state)
+        with spotify_div:
+            spotify.main(state)
 
     with ui.element("div").classes("max-w-lg bg-slate-400 w-full"):
         ui.label("Get SBP file")
-        sbp.main(app, lambda state: open_openlp(state, openlp_div))
+        sbp.main(app, lambda state: open_modules(state))
 
     with ui.element("div").classes("max-w-lg bg-slate-400 w-full") as openlp_div:
         ui.label("Add To OpenLP")
@@ -34,5 +42,7 @@ def main():
 
 
 ui.run(
+    # reload=False,
     port=native_mode.find_open_port(),
+    # native=True,
 )

@@ -5,3 +5,4 @@ class ApplicationState:
         self.openlp_db = None
         self.openlp_connected = False
         self.spotify_connected = False
+        self.dir = ""

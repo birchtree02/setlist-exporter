@@ -4,7 +4,6 @@ import zipfile
 import os
 import sys
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "song_tools"))
 
 from song_tools.sbp import SBP_backup as SBP
 from song_tools import chordpro_parser
