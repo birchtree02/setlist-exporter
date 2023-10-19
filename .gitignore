@@ -5,3 +5,4 @@ dist/
 song_tools/
 *.spec
 .DS_STORE
+*.txt
