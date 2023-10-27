@@ -72,7 +72,7 @@ def main(state: ApplicationState):
 
                 diff_string1, diff_string2 = song.diff(first_match_song)
                 with ui.element("div").classes("grid grid-cols-2"):
-                    # TODO: compress this code by having colour_by_start_character take a list of characters and their colours
+                    # TODO: compress this code by having colour_by_start_character take a dictionary of chars and their respective colours
                     with ui.element("div"):
                         ui.markdown("**SBP showing lines not in OpenLP**")
                         if diff_string1:

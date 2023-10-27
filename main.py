@@ -16,6 +16,7 @@ logging.basicConfig(
 @ui.page("/")
 def main():
     app = ApplicationState()
+    default_set_mode = False
 
     if getattr(sys, "frozen", False):
         # Code is running as a bundled executable (PyInstaller)
@@ -23,6 +24,7 @@ def main():
     else:
         # Code is running from the development environment
         app.dir = os.path.dirname(os.path.abspath(__file__))
+        default_set_mode = True
 
     def open_modules(state):
         with openlp_div:
@@ -32,7 +34,7 @@ def main():
 
     with ui.element("div").classes("max-w-lg bg-slate-400 w-full"):
         ui.label("Get SBP file")
-        sbp.main(app, lambda state: open_modules(state), default_set=True)
+        sbp.main(app, lambda state: open_modules(state), default_set=default_set_mode)
 
     with ui.element("div").classes("max-w-lg bg-slate-400 w-full") as openlp_div:
         ui.label("Add To OpenLP")
@@ -41,8 +43,16 @@ def main():
         ui.label("Spotify Playlist")
 
 
-ui.run(
-    # reload=False,
-    port=native_mode.find_open_port(),
-    # native=True,
-)
+
+if getattr(sys, "frozen", False):
+    ui.run(
+        reload=False,
+        port=native_mode.find_open_port(),
+        native=True,
+    )
+else:
+    ui.run(
+        # reload=False,
+        port=native_mode.find_open_port(),
+        # native=True,
+    )

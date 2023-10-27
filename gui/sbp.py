@@ -10,7 +10,7 @@ from song_tools import chordpro_parser
 import logging
 
 
-def main(state, next_page, default_set: str=""):
+def main(state, next_page, default_set: bool=False):
     def get_set_from_dataFile():
         dataFile_path = os.path.join(os.path.expanduser("~"), "Downloads", "dataFile.txt")
         sbp = SBP(dataFile_path)
