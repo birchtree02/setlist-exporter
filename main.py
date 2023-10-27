@@ -32,7 +32,7 @@ def main():
 
     with ui.element("div").classes("max-w-lg bg-slate-400 w-full"):
         ui.label("Get SBP file")
-        sbp.main(app, lambda state: open_modules(state))
+        sbp.main(app, lambda state: open_modules(state), default_set=True)
 
     with ui.element("div").classes("max-w-lg bg-slate-400 w-full") as openlp_div:
         ui.label("Add To OpenLP")
