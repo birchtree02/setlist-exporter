@@ -38,6 +38,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Determine New Tag Version
+        id: determine_version
+        run: |
+          # Get the commit message of the latest commit
+          commit_message=$(git log -1 --pretty=%B)
+          
+          # Extract the new version from the commit message using regular expressions or any other parsing logic
+          # Here's an example using regular expressions to extract a version number like "vX.Y.Z"
+          if [[ $commit_message =~ v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+            new_tag="${BASH_REMATCH[1]}"
+          else
+            echo "No valid version number found in the commit message."
+            exit 1
+          fi
+          
+          echo "::set-output name=new_tag::$new_tag"
+        shell: bash
+
+      - name: Update Git Tag
+        run: |
+          new_tag="${{ steps.determine_version.outputs.new_tag }}"
+          if [[ -z $new_tag ]]; then
+            echo "No new tag to create."
+          else
+            git tag -a $new_tag -m "Update to version $new_tag"
+            git push origin $new_tag
+          fi
       - name: Checkout code
         uses: actions/checkout@v2
 
