@@ -21,20 +21,17 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r requirements-build.txt
+          pip install -r requirements.txt pyinstaller
 
       - name: Build with PyInstaller
         run: |
           python build.py
-          mkdir -p build_artifacts
-          cp -r dist/* build_artifacts/
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: app-artifact
-          path: ./build_artifacts/
+          path: ./dist/
 
   release:
     needs: build
