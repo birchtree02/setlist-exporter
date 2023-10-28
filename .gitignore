@@ -6,6 +6,6 @@ song_tools/
 *.spec
 .DS_STORE
 *.txt
-!requirements.txt
+!requirements*.txt
 spot_cred.json
 .cache*

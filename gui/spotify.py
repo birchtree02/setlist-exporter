@@ -21,6 +21,7 @@ def main(state: ApplicationState):
             state.spotify_connected = True
         except requests.exceptions.ConnectionError:
             # TODO: get this to work properly
+            # TODO: handle getting spotify cred
             ui.notify("Couldn't connect to Spotify")
             ui.label("Couldn't connect to Spotify")
             ui.button("Try Again", on_click=lambda: retry)
