@@ -76,30 +76,24 @@ def main(state: ApplicationState):
                     with ui.element("div"):
                         ui.markdown("**SBP showing lines not in OpenLP**")
                         if diff_string1:
-                            diff_string1 = colour_by_start_character(
-                                diff_string1, char="\-", colour="red"
-                            )
-                            diff_string1 = colour_by_start_character(
-                                diff_string1, char="\%", colour="orange"
-                            )
-                            diff_string1 = colour_by_start_character(
-                                diff_string1, char="\*", colour="orange"
-                            )
+                            diff_string1 = colours_by_start_characters(
+                                    diff_string1,
+                                    {"\-":"red",
+                                     "\%":"orange",
+                                     "\*":"orange"}
+                                )
                             ui.markdown(diff_string1.replace("\n", "<br>"))
                         else:
                             ui.markdown("*All lines in SBP are in OpenLP*")
                     with ui.element("div"):
                         ui.markdown("**OpenLP showing lines not in SBP**")
                         if diff_string2:
-                            diff_string2 = colour_by_start_character(
-                                diff_string2, char="\+", colour="green"
-                            )
-                            diff_string2 = colour_by_start_character(
-                                diff_string2, char="\%", colour="orange"
-                            )
-                            diff_string2 = colour_by_start_character(
-                                diff_string2, char="\*", colour="orange"
-                            )
+                            diff_string2 = colours_by_start_characters(
+                                    diff_string2,
+                                    {"\+":"green",
+                                     "\%":"orange",
+                                     "\*":"orange"}
+                                )
                             ui.markdown(diff_string2.replace("\n", "<br>"))
                         else:
                             ui.markdown("*All lines in OpenLP are in SBP*")
@@ -131,6 +125,11 @@ def main(state: ApplicationState):
                         ui.button("Next", on_click=stepper.next)
                         ui.button("Back", on_click=stepper.previous).props("flat")
 
+def colours_by_start_characters(diff_string, char_to_colour: dict):
+    for (char, colour) in char_to_colour.items():
+        diff_string = colour_by_start_character(diff_string, char, colour)
+
+    return diff_string
 
 def colour_by_start_character(diff_string, char, colour):
     return re.sub(

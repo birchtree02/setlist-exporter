@@ -44,6 +44,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Configure Git Identity
+        run: |
+          git config --global user.name "Edward Birchall"
+          git config --global user.email "edbirchy664@gmail.com"
+        shell: bash
+        
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
