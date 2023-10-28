@@ -29,6 +29,7 @@ jobs:
 
       - name: Copy build artifacts
         run: |
+          shopt -s dotglob
           mkdir -p build_artifacts
           cp -r ./dist/* build_artifacts/
 
