@@ -38,6 +38,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
       - name: Determine New Tag Version
         id: determine_version
         run: |
@@ -65,8 +68,6 @@ jobs:
             git tag -a $new_tag -m "Update to version $new_tag"
             git push origin $new_tag
           fi
-      - name: Checkout code
-        uses: actions/checkout@v2
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
