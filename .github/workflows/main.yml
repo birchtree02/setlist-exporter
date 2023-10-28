@@ -26,12 +26,14 @@ jobs:
       - name: Build with PyInstaller
         run: |
           python build.py
+          mkdir -p build_artifacts
+          cp -r dist/* build_artifacts/
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: app-artifact
-          path: dist/
+          path: ./build_artifacts/
 
   release:
     needs: build
