@@ -40,6 +40,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Configure Git Identity
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "youremail@example.com"
+        shell: bash
         
       - name: Determine New Tag Version
         id: determine_version
